@@ -1,5 +1,4 @@
 use std::fmt::{ self, Debug, Formatter };
-
 use super::*;
 
 pub struct Block {
@@ -16,15 +15,15 @@ impl Debug for Block {
         write!(f, "Block[{}]: {} at: {} with: {}",
             &self.index,
             &hex::encode(&self.hash),
-            &self.timestamp
-            &self.payload
+            &self.timestamp,
+            &self.payload,
         )
     }
 }
 
 impl Block {
-    pub fn new (index: u32, timestamp: u128, prev_block_hash: BlockHash, n
-    once: u64, payload: String) -> Self {
+    pub fn new (index: u32, timestamp: u128, prev_block_hash: BlockHash, 
+    nonce: u64, payload: String) -> Self {
         Block {
             index,
             timestamp,
@@ -33,5 +32,19 @@ impl Block {
             nonce,
             payload,
         }
+    }
+}
+
+impl Hashable for Block {
+    fn bytes (&self) -> Vec<u8> {
+        let mut bytes = vec![];
+
+        bytes.extend(&u32_bytes(&self.index));
+        bytes.extend(&u128_bytes(&self.timestamp));
+        bytes.extend(&self.prev_block_hash);
+        bytes.extend(&u64_bytes(&self.nonce));
+        bytes.extend(self.payload.as_bytes());
+
+        bytes
     }
 }
