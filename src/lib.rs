@@ -1,7 +1,6 @@
 type Hash = Vec<u8>;
 type Address = String;
 
-// Credit: https://stackoverflow.com/a/44378174/2773837
 use std::time::{ SystemTime, UNIX_EPOCH };
 
 pub fn now () -> u128 {
@@ -87,3 +86,4 @@ mod blockchain;
 pub use crate::blockchain::Blockchain;
 pub mod transaction;
 pub use crate::transaction::Transaction;
+

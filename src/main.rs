@@ -1,3 +1,4 @@
+extern crate blockchainlib;
 use blockchainlib::*;
 
 fn main () {
